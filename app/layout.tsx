@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: "https://modernstore.com",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/jabeencloset.jpg",
         width: 1200,
         height: 630,
         alt: "Jabeen Closet",
