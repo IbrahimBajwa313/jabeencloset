@@ -12,11 +12,11 @@ import Link from "next/link"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "ModernStore - Premium eCommerce Experience",
+  title: "Jabeen Closet - Premium eCommerce Experience",
   description: "Discover premium products with fast shipping and exceptional customer service.",
   keywords: "ecommerce, online store, premium products, fast shipping",
   openGraph: {
-    title: "ModernStore - Premium eCommerce Experience",
+    title: "Jabeen Closet - Premium eCommerce Experience",
     description: "Discover premium products with fast shipping and exceptional customer service.",
     type: "website",
     url: "https://modernstore.com",
@@ -25,17 +25,17 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "ModernStore",
+        alt: "Jabeen Closet",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ModernStore - Premium eCommerce Experience",
+    title: "Jabeen Closet - Premium eCommerce Experience",
     description: "Discover premium products with fast shipping and exceptional customer service.",
     images: ["/og-image.jpg"],
   },
-  generator: "v0.dev",
+  generator: "Ibrahim Bajwa",
 }
 
 export default function RootLayout({
@@ -53,7 +53,7 @@ export default function RootLayout({
 
               {/* WhatsApp Floating Button */}
               <Link
-                href="https://wa.me/923039008580" // Replace with your number
+                href="https://wa.me/923157642896" // Replace with your number
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fixed bottom-6 right-6 z-50"

@@ -17,7 +17,7 @@ export function AdminSettings() {
   const { toast } = useToast()
 
   const [storeSettings, setStoreSettings] = useState({
-    storeName: "ModernStore",
+    storeName: "Jabeen Closet",
     storeDescription: "Premium eCommerce experience",
     storeEmail: "support@modernstore.com",
     storePhone: "+1 (555) 123-4567",
@@ -35,7 +35,7 @@ export function AdminSettings() {
     smtpUser: "",
     smtpPassword: "",
     fromEmail: "noreply@modernstore.com",
-    fromName: "ModernStore",
+    fromName: "Jabeen Closet",
   })
 
   const [notificationSettings, setNotificationSettings] = useState({

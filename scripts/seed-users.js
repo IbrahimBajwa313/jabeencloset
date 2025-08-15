@@ -23,7 +23,7 @@ async function seedUsers() {
         name: "Admin User",
         role: "admin",
         profile: {
-          phone: "+1234567890",
+          phone: "+92 315 7642896",
           address: "123 Admin Street",
           city: "Admin City",
           state: "AC",
@@ -39,7 +39,7 @@ async function seedUsers() {
         name: "John Doe",
         role: "customer",
         profile: {
-          phone: "+1987654321",
+          phone: "+92 315 7642896",
           address: "456 Customer Avenue",
           city: "Customer City",
           state: "CC",

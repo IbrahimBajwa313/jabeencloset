@@ -41,7 +41,7 @@ export function RegisterForm() {
 
       toast({
         title: "Account created",
-        description: "Welcome to ModernStore! Please check your email to verify your account.",
+        description: "Welcome to Jabeen Closet! Please check your email to verify your account.",
       })
     } catch (error) {
       toast({
