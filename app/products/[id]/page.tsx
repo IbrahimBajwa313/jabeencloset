@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   }
 
   return {
-    title: `${product.name} - ModernStore`,
+    title: `${product.name} - Jabeen Closet`,
     description: product.description,
     openGraph: {
       title: product.name,
