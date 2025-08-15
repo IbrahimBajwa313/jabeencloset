@@ -15,7 +15,7 @@ import { FeaturedProducts } from "@/components/featured-products"
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
-          <TopBanner />
+          {/* <TopBanner /> */}
       <Navbar />
       <main>
         <HeroSection />

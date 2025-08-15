@@ -83,15 +83,13 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <motion.div
-              className="h-20 w-auto sm:h-24 rounded-lg overflow-hidden flex items-center justify-center"
+              className="flex items-center justify-center"
               animate={showShimmer ? { rotate: [-2, 2, -1, 1, 0] } : {}}
               transition={{ duration: 1.2, ease: "easeInOut" }}
             >
-              <img
-                src="/logo.png"
-                alt="ModernStore Logo"
-                className="h-full object-contain"
-              />
+              <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-rose-600 via-coral-500 to-rose-500 bg-clip-text text-transparent hover:from-rose-500 hover:via-coral-400 hover:to-rose-400 transition-all duration-300 tracking-wide">
+                Jabeen Closet
+              </h1>
             </motion.div>
           </Link>
 
