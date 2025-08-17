@@ -117,7 +117,7 @@ export function Footer() {
             <h4 className="text-sm font-semibold mb-4 text-rose-600 dark:text-rose-300">Contact</h4>
             <ul className="space-y-2 text-sm text-rose-700 dark:text-rose-400">
               <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-coral-500" /> +92 315 7642896
+                <Phone className="w-4 h-4 text-coral-500" /> +9223241635860
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-coral-500" /> jabeen@gmail.com
