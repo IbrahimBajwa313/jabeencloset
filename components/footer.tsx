@@ -44,7 +44,7 @@ export function Footer() {
   return (
     <footer className="border-t sm:mt-16 mt-20 mb-10 dark:border-white/10">
       {/* Newsletter CTA */}
-      <div className="relative z-10 w-full flex justify-center">
+      {/* <div className="relative z-10 w-full flex justify-center">
         <div className="w-10/12 md:w-9/12 lg:w-3/5 mx-auto shadow-rose -mb-20 z-20">
           <div className="gradient-rose text-white rounded-xl shadow-rose border border-white/30 overflow-visible">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 px-4 py-6 md:px-10 md:py-10 relative">
@@ -57,7 +57,7 @@ export function Footer() {
                   className="object-contain"
                 />
               </div> */}
-
+{/* 
               <div className="md:pl-48 lg:pl-56 flex flex-col justify-center gap-3 text-center md:text-left">
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-snug">
                   Subscribe to our newsletter
@@ -87,7 +87,7 @@ export function Footer() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */} 
 
       {/* Main Footer */}
       <div className="relative z-0 container shadow-soft bg-gradient-to-br from-rose-50 to-coral-50 dark:from-rose-950 dark:to-coral-950 border border-rose-200 dark:border-rose-800 w-11/12 sm:w-5/6 mx-auto px-4 pt-32 sm:pt-20 pb-2 rounded-xl">
