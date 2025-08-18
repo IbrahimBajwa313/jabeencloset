@@ -3,7 +3,7 @@
 import React from "react"
 import type { ReactElement } from "react"
 import { useState, useEffect, useCallback } from "react"
-import { Plus, Search, Edit, Trash2, Eye, Upload, X, Brain } from "lucide-react"
+import { Plus, Search, Edit, Trash2, Eye, Upload, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -22,8 +22,6 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"
 import { useToast } from "@/hooks/use-toast"
-import { SmartInput } from "@/components/ui/smart-input"
-import { useAISuggestions } from "@/hooks/use-ai-suggestions"
 import Image from "next/image"
 
 interface Product {
@@ -77,8 +75,6 @@ const ProductForm = React.memo<{
   onRemoveImage: (index: number) => void
   onCancel: () => void
   isEdit?: boolean
-  getSuggestions?: (text: string) => Promise<any[]>
-  aiStatus?: any
 }>(
   ({
     formData,
@@ -91,19 +87,10 @@ const ProductForm = React.memo<{
     onRemoveImage,
     onCancel,
     isEdit = false,
-    getSuggestions,
-    aiStatus,
   }) => {
     const handleInputChange = useCallback(
       (field: keyof ProductFormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData((prev) => ({ ...prev, [field]: e.target.value }))
-      },
-      [setFormData],
-    )
-
-    const handleSmartInputChange = useCallback(
-      (field: keyof ProductFormData) => (value: string) => {
-        setFormData((prev) => ({ ...prev, [field]: value }))
       },
       [setFormData],
     )
@@ -119,20 +106,11 @@ const ProductForm = React.memo<{
       <form onSubmit={onSubmit} className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor={`${isEdit ? "edit-" : ""}name`} className="flex items-center gap-2">
-              Product Name
-              {aiStatus?.isReady && (
-                <div title="AI-powered suggestions">
-                  <Brain className="h-4 w-4 text-coral-500" />
-                </div>
-              )}
-            </Label>
-            <SmartInput
+            <Label htmlFor={`${isEdit ? "edit-" : ""}name`}>Product Name</Label>
+            <Input
               id={`${isEdit ? "edit-" : ""}name`}
               value={formData.name}
-              onChange={handleSmartInputChange("name")}
-              placeholder="Enter product name..."
-              getSuggestions={getSuggestions}
+              onChange={handleInputChange("name")}
               required
             />
           </div>
@@ -148,28 +126,18 @@ const ProductForm = React.memo<{
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor={`${isEdit ? "edit-" : ""}description`} className="flex items-center gap-2">
-            Description
-            {aiStatus?.isReady && (
-              <div title="AI-powered suggestions">
-                <Brain className="h-4 w-4 text-coral-500" />
-              </div>
-            )}
-          </Label>
-          <SmartInput
+          <Label htmlFor={`${isEdit ? "edit-" : ""}description`}>Description</Label>
+          <Textarea
             id={`${isEdit ? "edit-" : ""}description`}
-            type="textarea"
             value={formData.description}
-            onChange={handleSmartInputChange("description")}
-            placeholder="Enter product description..."
-            getSuggestions={getSuggestions}
+            onChange={handleInputChange("description")}
             required
           />
         </div>
 
         <div className="grid grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label htmlFor={`${isEdit ? "edit-" : ""}price`}>Price ($)</Label>
+            <Label htmlFor={`${isEdit ? "edit-" : ""}price`}>Price (Rs.)</Label>
             <Input
               id={`${isEdit ? "edit-" : ""}price`}
               type="number"
@@ -180,7 +148,7 @@ const ProductForm = React.memo<{
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor={`${isEdit ? "edit-" : ""}originalPrice`}>Original Price ($)</Label>
+            <Label htmlFor={`${isEdit ? "edit-" : ""}originalPrice`}>Original Price (Rs.)</Label>
             <Input
               id={`${isEdit ? "edit-" : ""}originalPrice`}
               type="number"
@@ -304,39 +272,22 @@ const ProductForm = React.memo<{
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor={`${isEdit ? "edit-" : ""}features`} className="flex items-center gap-2">
-            Features (comma-separated)
-            {aiStatus?.isReady && (
-              <div title="AI-powered suggestions">
-                <Brain className="h-4 w-4 text-coral-500" />
-              </div>
-            )}
-          </Label>
-          <SmartInput
+          <Label htmlFor={`${isEdit ? "edit-" : ""}features`}>Features (comma-separated)</Label>
+          <Textarea
             id={`${isEdit ? "edit-" : ""}features`}
-            type="textarea"
             value={formData.features}
-            onChange={handleSmartInputChange("features")}
+            onChange={handleInputChange("features")}
             placeholder="Feature 1, Feature 2, Feature 3"
-            getSuggestions={getSuggestions}
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor={`${isEdit ? "edit-" : ""}tags`} className="flex items-center gap-2">
-            Tags (comma-separated)
-            {aiStatus?.isReady && (
-              <div title="AI-powered suggestions">
-                <Brain className="h-4 w-4 text-coral-500" />
-              </div>
-            )}
-          </Label>
-          <SmartInput
+          <Label htmlFor={`${isEdit ? "edit-" : ""}tags`}>Tags (comma-separated)</Label>
+          <Input
             id={`${isEdit ? "edit-" : ""}tags`}
             value={formData.tags}
-            onChange={handleSmartInputChange("tags")}
+            onChange={handleInputChange("tags")}
             placeholder="tag1, tag2, tag3"
-            getSuggestions={getSuggestions}
           />
         </div>
 
@@ -366,9 +317,6 @@ export function ProductManagement(): ReactElement {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [uploadingImages, setUploadingImages] = useState(false)
   const { toast } = useToast()
-  
-  // AI Suggestions Hook
-  const { getSuggestions, status: aiStatus, isLoading: aiLoading, isReady: aiReady } = useAISuggestions()
 
   const [formData, setFormData] = useState<ProductFormData>({
     name: "",
@@ -522,10 +470,13 @@ export function ProductManagement(): ReactElement {
           originalPrice: formData.originalPrice ? Number.parseFloat(formData.originalPrice) : undefined,
           stock: Number.parseInt(formData.stock),
           rating: parseFloat(formData.rating),
-          features: formData.features
-            .split(",")
-            .map((f) => f.trim())
-            .filter(Boolean),
+          features:
+  typeof formData.features === "string"
+    ? formData.features.split("\n").map(f => f.trim()).filter(Boolean)
+    : formData.features,
+
+
+
           tags: formData.tags
             .split(",")
             .map((t) => t.trim())
@@ -577,12 +528,14 @@ export function ProductManagement(): ReactElement {
           originalPrice: formData.originalPrice ? Number.parseFloat(formData.originalPrice) : undefined,
           stock: Number.parseInt(formData.stock),
           rating: parseFloat(formData.rating),
-          features: formData.features
-            .split(",")
-            .map((f) => f.trim())
-            .filter(Boolean),
+          features:
+  typeof formData.features === "string"
+    ? formData.features.split("\n").map(f => f.trim()).filter(Boolean)
+    : formData.features,
+
+        
           tags: formData.tags
-            .split(",")
+            .split("\n")
             .map((t) => t.trim())
             .filter(Boolean),
         }
@@ -659,7 +612,7 @@ export function ProductManagement(): ReactElement {
       stock: product.stock.toString(),
       sku: product.sku,
       status: product.status,
-      features: product.features.join(", "),
+      features: Array.isArray(product.features) ? product.features.join("\n") : product.features,
       tags: product.tags.join(", "),
       images: product.images,
       rating: product.rating?.toString() || "4", // <- Add this
@@ -714,28 +667,7 @@ export function ProductManagement(): ReactElement {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <CardTitle>Product Management</CardTitle>
-              {/* AI Status Indicator */}
-              <div className="flex items-center gap-2 text-sm">
-                {aiLoading ? (
-                  <div className="flex items-center gap-2 text-amber-600">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-amber-600"></div>
-                    <span>Loading AI...</span>
-                  </div>
-                ) : aiReady ? (
-                  <div className="flex items-center gap-2 text-coral-600">
-                    <Brain className="h-4 w-4" />
-                    <span>AI Ready</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2 text-gray-500">
-                    <Brain className="h-4 w-4" />
-                    <span>AI Offline</span>
-                  </div>
-                )}
-              </div>
-            </div>
+            <CardTitle>Product Management</CardTitle>
             <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
               <DialogTrigger asChild>
                 <Button onClick={resetForm}>
@@ -758,8 +690,6 @@ export function ProductManagement(): ReactElement {
                   onImageUpload={handleImageUpload}
                   onRemoveImage={removeImage}
                   onCancel={handleCancelAdd}
-                  getSuggestions={getSuggestions}
-                  aiStatus={aiStatus}
                 />
               </DialogContent>
             </Dialog>
@@ -811,9 +741,9 @@ export function ProductManagement(): ReactElement {
                     <TableCell>{product.category.name}</TableCell>
                     <TableCell>
                       <div>
-                        <div className="font-medium">${product.price}</div>
+                        <div className="font-medium">Rs.{product.price}</div>
                         {product.originalPrice && (
-                          <div className="text-sm text-gray-500 line-through">${product.originalPrice}</div>
+                          <div className="text-sm text-gray-500 line-through">Rs.{product.originalPrice}</div>
                         )}
                       </div>
                     </TableCell>
@@ -870,8 +800,6 @@ export function ProductManagement(): ReactElement {
             onRemoveImage={removeImage}
             onCancel={handleCancelEdit}
             isEdit={true}
-            getSuggestions={getSuggestions}
-            aiStatus={aiStatus}
           />
         </DialogContent>
       </Dialog>

@@ -25,6 +25,7 @@ export async function POST(request) {
       inputText: text,
       type: type
     });
+    
 
   } catch (error) {
     console.error('Suggestions API error:', error);
