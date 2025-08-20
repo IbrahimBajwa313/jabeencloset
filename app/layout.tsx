@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/components/auth-provider"
 import { CartProvider } from "@/context/cart-context"
+import { ChatbotProvider } from "@/context/chatbot-context"
+import ChatbotWidget from "@/components/chatbot-widget"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -49,23 +51,34 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <AuthProvider>
             <CartProvider>
-              {children}
+              <ChatbotProvider>
+                {children}
 
-              {/* WhatsApp Floating Button */}
-              <Link
-                href="https://wa.me/923241635860" // Replace with your number
-                target="_blank"
-                rel="noopener noreferrer"
-                className="fixed bottom-6 right-6 z-50"
-              >
-                <Image
-                  src="/whatsapp-icon.png" // Place the logo in public/ directory
-                  alt="WhatsApp"
-                  width={72}
-                  height={72}
-                  className="animate-whatsapp-spin"
+                {/* AI Chatbot Widget */}
+                <ChatbotWidget 
+                  position="bottom-left"
+                  primaryColor="#F56565"
+                  enableVoice={true}
+                  autoSpeak={false}
+                  showLanguageSelector={true}
                 />
-              </Link>
+
+                {/* WhatsApp Floating Button */}
+                <Link
+                  href="https://wa.me/923241635860" // Replace with your number
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="fixed bottom-6 right-6 z-50"
+                >
+                  <Image
+                    src="/whatsapp-icon.png" // Place the logo in public/ directory
+                    alt="WhatsApp"
+                    width={72}
+                    height={72}
+                    className="animate-whatsapp-spin"
+                  />
+                </Link>
+              </ChatbotProvider>
             </CartProvider>
             <Toaster />
           </AuthProvider>

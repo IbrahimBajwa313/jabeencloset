@@ -45,8 +45,8 @@ const sidebarItems = [
     icon: BarChart3,
   },
   {
-    title: "Settings",
-    href: "/admin/settings",
+    title: "Chatbot Knowledge Management",
+    href: "/admin/chatbot",
     icon: Settings,
   },
 ]
