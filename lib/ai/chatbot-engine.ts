@@ -1,5 +1,5 @@
 import FallbackAIClient from './fallback-client'
-import OllamaClient from './ollama-client'
+import GroqClient from './groq-client'
 import connectDB from '@/lib/mongodb'
 import Product from '@/models/Product'
 import Category from '@/models/Category'
@@ -15,7 +15,7 @@ interface ChatContext {
 }
 
 class ChatbotEngine {
-  private aiClient: OllamaClient | FallbackAIClient
+  private aiClient: GroqClient | FallbackAIClient
   private context: ChatContext | null = null
   private aiClientInitialized: boolean = false
 
@@ -29,15 +29,15 @@ class ChatbotEngine {
     if (this.aiClientInitialized) return
 
     try {
-      // Try Ollama (local) first
-      const ollamaClient = new OllamaClient()
-      const isOllamaAvailable = await ollamaClient.checkModelAvailability()
+      // Try Groq (cloud) first
+      const groqClient = new GroqClient()
+      const isGroqAvailable = await groqClient.checkModelAvailability()
       
-      if (isOllamaAvailable) {
-        this.aiClient = ollamaClient
-        console.log('Using Ollama (local)')
+      if (isGroqAvailable) {
+        this.aiClient = groqClient
+        console.log('Using Groq (cloud)')
       } else {
-        console.log('Ollama not available, using Fallback AI')
+        console.log('Groq not available, using Fallback AI')
       }
       
       this.aiClientInitialized = true

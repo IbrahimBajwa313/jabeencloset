@@ -8,6 +8,8 @@ class HuggingFaceClient {
     this.apiKey = apiKey || process.env.HUGGINGFACE_API_KEY || ''
     this.model = model
     this.baseUrl = 'https://api-inference.huggingface.co/models'
+    console.log('HuggingFace Client initialized with model:', this.model)
+    console.log('API Key status:', this.apiKey ? `Present (${this.apiKey.substring(0, 10)}...)` : 'Missing')
   }
 
   async generateResponse(prompt: string, systemPrompt?: string): Promise<string> {
@@ -26,10 +28,12 @@ class HuggingFaceClient {
         body: JSON.stringify({
           inputs: fullPrompt,
           parameters: {
-            max_new_tokens: 200,
-            temperature: 0.7,
+            max_new_tokens: 300,
+            temperature: 0.8,
             do_sample: true,
-            return_full_text: false
+            return_full_text: false,
+            top_p: 0.9,
+            repetition_penalty: 1.1
           }
         })
       })
@@ -81,6 +85,8 @@ class HuggingFaceClient {
 
   async checkModelAvailability(): Promise<boolean> {
     try {
+      console.log('Checking HF availability with API key:', this.apiKey ? 'Present' : 'Missing')
+      
       const response = await fetch(`${this.baseUrl}/${this.model}`, {
         method: 'POST',
         headers: {
@@ -92,6 +98,14 @@ class HuggingFaceClient {
           parameters: { max_new_tokens: 10 }
         })
       })
+      
+      console.log('HF API Response status:', response.status)
+      
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('HF API Error:', errorText)
+      }
+      
       return response.ok
     } catch (error) {
       console.error('Failed to check Hugging Face availability:', error)
