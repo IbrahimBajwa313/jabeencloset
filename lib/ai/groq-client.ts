@@ -10,6 +10,8 @@ class GroqClient {
     this.baseUrl = 'https://api.groq.com/openai/v1'
     console.log('Groq Client initialized with model:', this.model)
     console.log('API Key status:', this.apiKey ? `Present (${this.apiKey.substring(0, 10)}...)` : 'Missing')
+    console.log('Environment:', process.env.NODE_ENV)
+    console.log('All env vars containing GROQ:', Object.keys(process.env).filter(key => key.includes('GROQ')))
   }
 
   async generateResponse(prompt: string, systemPrompt?: string): Promise<string> {
