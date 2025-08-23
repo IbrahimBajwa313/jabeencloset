@@ -43,51 +43,7 @@ export function Footer() {
 
   return (
     <footer className="border-t sm:mt-16 mt-20 mb-10 dark:border-white/10">
-      {/* Newsletter CTA */}
-      {/* <div className="relative z-10 w-full flex justify-center">
-        <div className="w-10/12 md:w-9/12 lg:w-3/5 mx-auto shadow-rose -mb-20 z-20">
-          <div className="gradient-rose text-white rounded-xl shadow-rose border border-white/30 overflow-visible">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 px-4 py-6 md:px-10 md:py-10 relative">
-              {/* <div className="md:absolute relative flex flex-col left-0 -bottom-6 md:block">
-                <Image
-                  src="/footer.png"
-                  alt="Newsletter Illustration"
-                  width={220}
-                  height={220}
-                  className="object-contain"
-                />
-              </div> */}
-{/* 
-              <div className="md:pl-48 lg:pl-56 flex flex-col justify-center gap-3 text-center md:text-left">
-                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-snug">
-                  Subscribe to our newsletter
-                </h2>
-                <p className="text-sm text-rose-100 max-w-md mx-auto md:mx-0">
-                  Get 20% off on your first order just by subscribing. Don't miss out on the cutest toddler deals!
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 mt-2 justify-center md:justify-start">
-                  <Input
-                    placeholder="Enter your email"
-                    className="rounded-full px-4 py-2 text-rose-800 w-full sm:w-64 bg-white border-rose-200 focus:border-rose-400"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <Button
-                    onClick={handleSubscribe}
-                    disabled={isLoading || !email}
-                    className="rounded-full bg-white text-rose-600 hover:bg-rose-50 hover:text-rose-700 px-6 whitespace-nowrap shadow-soft transition-all duration-300"
-                  >
-                    {isLoading ? "Sending..." : "Subscribe"}
-                  </Button>
-                </div>
-                {success && (
-                  <p className="text-xs mt-1 text-coral-200">✅ You're subscribed!</p>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */} 
+       
 
       {/* Main Footer */}
       <div className="relative z-0 container shadow-soft bg-gradient-to-br from-rose-50 to-coral-50 dark:from-rose-950 dark:to-coral-950 border border-rose-200 dark:border-rose-800 w-11/12 sm:w-5/6 mx-auto px-4 pt-32 sm:pt-20 pb-2 rounded-xl">
